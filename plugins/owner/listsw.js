@@ -1,0 +1,108 @@
+/**
+@credit Tio
+@Tixo MD
+@Whatsapp Bot
+@Support dengan Donasi ✨
+wa.me/6282285357346
+**/
+
+const Tio = async (m, {
+    conn
+}) => {
+    conn.storyData = conn.storyData ? conn.storyData : {};
+
+    const list = conn.story || [];
+    if (list.length === 0) {
+        return await conn.reply(m.chat, `Tidak ada cerita yang tersedia saat ini. Silakan tambahkan cerita dengan mengirim gambar, video, atau pesan suara.`, m, {
+            mentions: [m.sender]
+        });
+    }
+
+    const formatMessage = (obj, index) => {
+        const {
+            type,
+            sender,
+            caption
+        } = obj;
+        const messageType = convertMessageType(type);
+        const senderUsername = sender.split('@')[0];
+        let text = `*${index + 1}.* *Type*: ${messageType.toUpperCase()}\n*User*: @${senderUsername}`;
+        if (caption) text += `\n*Caption*: ${caption}`;
+        return text + `\n`;
+    };
+
+    const formattedMessages = list.map(formatMessage).join('\n');
+
+    let {
+        key
+    } = await m.reply(
+        `👁️‍🗨️ Daftar Story:\n\n${formattedMessages}\n\nBalas pesan ini dengan nomor cerita yang ingin ditampilkan.`
+    );
+    conn.storyData[m.chat] = {
+        list,
+        key,
+        timeout: setTimeout(() => {
+            conn.sendMessage(m.chat, {
+                delete: key
+            });
+            delete conn.storyData[m.chat];
+        }, 60 * 1000)
+    };
+};
+
+Tio.before = async (m, {
+    conn
+}) => {
+    conn.storyData = conn.storyData ? conn.storyData : {};
+    if (m.isBaileys || !(m.chat in conn.storyData)) return;
+
+    if (!conn.storyData[m.chat]) return;
+    const {
+        list,
+        key
+    } = conn.storyData[m.chat];
+    if (!m.quoted || m.quoted.id !== key.id || !m.text) return;
+    const index = parseInt(m.text.trim());
+
+    if (isNaN(index) || index < 1 || index > list.length) {
+        await conn.reply(m.chat, "⚠️ Masukkan nomor video yang valid.", m);
+    } else {
+        const selectedObj = list[index - 1];
+        if (selectedObj.type === 'imageMessage' || selectedObj.type === 'videoMessage') {
+            const caption = selectedObj.caption ? selectedObj.caption : '';
+            await conn.sendFile(m.chat, selectedObj.buffer, '', caption, selectedObj.quoted, false, {
+                contextInfo: {
+                    mentionedJid: [m.sender]
+                }
+            });
+        } else if (selectedObj.type === 'audioMessage') {
+            await conn.sendFile(m.chat, selectedObj.buffer, '', '', selectedObj.quoted);
+        } else if (selectedObj.type === 'extendedTextMessage') {
+            const message = selectedObj.message ? selectedObj.message : '';
+            await conn.reply(m.chat, message, selectedObj.quoted, {
+                contextInfo: {
+                    mentionedJid: [m.sender]
+                }
+            });
+        }
+        clearTimeout(conn.storyData[m.chat].timeout);
+        delete conn.storyData[m.chat];
+    }
+};
+
+Tio.help = ["botsw", "listsw"];
+Tio.tags = ["info"];
+Tio.command = /^(botsw|listsw)$/i;
+Tio.rowner = true;
+
+export default Tio;
+
+function convertMessageType(messageType) {
+    const messageTypes = {
+        'videoMessage': 'video',
+        'imageMessage': 'gambar',
+        'audioMessage': 'vn',
+        'extendedTextMessage': 'teks',
+    };
+    return messageTypes[messageType] || 'unknown';
+}

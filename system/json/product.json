@@ -1,0 +1,57 @@
+{
+    "sewa": [{
+        "type": "HARIAN",
+        "price": "Rp 1.000/hari",
+        "urlTag": "harian",
+        "bonus": "",
+        "harga": 1000,
+        "amount": 1
+    }, {
+        "type": "MINGGUAN",
+        "price": "Rp 8.000/minggu",
+        "urlTag": "mingguan",
+        "bonus": "",
+        "harga": 8000,
+        "amount": 7
+    }, {
+        "type": "BULANAN",
+        "price": "Rp 27.000/bulan",
+        "urlTag": "bulanan",
+        "bonus": "",
+        "harga": 27000,
+        "amount": 30
+    }, {
+        "type": "DUA BULAN",
+        "price": "Rp 55.000/2 bulan",
+        "urlTag": "dua_bulan",
+        "bonus": "",
+        "harga": 55000,
+        "amount": 60
+    }],
+    "premium": [{
+        "type": "HARIAN",
+        "price": "Rp 1.000/hari",
+        "urlTag": "harian",
+        "harga": 1000,
+        "amount": 1
+    }, {
+        "type": "MINGGUAN",
+        "price": "Rp 4.000/minggu",
+        "urlTag": "mingguan",
+        "harga": 4000,
+        "amount": 7
+    }, {
+        "type": "BULANAN",
+        "price": "Rp 10.000/bulan",
+        "urlTag": "bulanan",
+        "harga": 10000,
+        "amount": 30
+    }, {
+        "type": "PERMANEN",
+        "price": "Rp 20.000/unli",
+        "bonus": "Bonus: DURASI PREMIUM PERMANEN",
+        "urlTag": "permanen",
+        "harga": 15000,
+        "amount": 0
+    }]
+}

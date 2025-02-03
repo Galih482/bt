@@ -1,0 +1,20 @@
+{
+  "open": "Group saat ini telah dibuka oleh admin",
+  "close": "Group saat ini telah ditutup oleh admin",
+  "backupName": "tmp/Tixo.zip",
+  "message": {
+    "premium": "Fitur khusus pengguna premium.",
+    "group": "Fitur khusus di dalam grup.",
+    "pconly": "Fitur khusus di private chat.",
+    "joinonly": "Saat ini Bot hanya dapat digunakan didalam grup official, bergabung grup akan dapat mengakses Bot saat ini.",
+    "gconly": "Saat ini fitur hanya dapat digunakan di dalam grup saja.",
+    "botAdmin": "Bot harus menjadi admin untuk bisa menggunakan fitur ini.",
+    "admin": "Fitur khusus admin grup.",
+    "adminOnly": "Saat ini fitur hanya dapat digunakan oleh admin saja.",
+    "premiumOnly": "📢 Sepertinya kamu bukan pengguna premium. Silakan beli premium untuk mendapatkan fitur lengkap.",
+    "game": "Fitur *GAME* tidak diaktifkan untuk grup ini.",
+    "rpg": "Fitur *RPG* tidak diaktifkan untuk grup ini.",
+    "rowner": "Fitur khusus real owner.",
+    "owner": "Fitur khusus owner."
+  }
+}
